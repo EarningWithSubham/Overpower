@@ -160,7 +160,7 @@ bot.hears(/^\/start (.+[1-9]$)/, async (ctx) => {
 
         if (admin.length == 0) {
 
-            db.collection('admindb').insertOne({ admin: "admin", ref: 1, cur: 'INR', paychannel: '@jsjdkkdkdhsjdk', bonus: 0.1, minimum: 1, botstat: 'Active', withstat: 'ON', subwallet: 'NOT SET', MKEY: 'NOT SET', MID: 'NOT SET', channels: [] })
+            db.collection('admindb').insertOne({ admin: "admin", ref: 0.5, cur: 'INR', paychannel: payout_channel_sp', bonus: 0.1, minimum: 1, botstat: 'Active', withstat: 'ON', subwallet: 'NOT SET', MKEY: 'NOT SET', MID: 'NOT SET', channels: [] })
 
             ctx.replyWithMarkdown(
 
@@ -226,7 +226,7 @@ bot.start(async (ctx) => {
 
         if (admin.length == 0) {
 
-            db.collection('admindb').insertOne({ admin: "admin", ref: 1, cur: 'INR', paychannel: '@jsjdkkdkdhsjdk', bonus: 0.1, minimum: 1, botstat: 'Active', withstat: 'ON', subwallet: 'NOT SET', MKEY: 'NOT SET', MID: 'NOT SET', channels: [] })
+            db.collection('admindb').insertOne({ admin: "admin", ref: 0.5, cur: 'INR', paychannel: '@payout_channel_sp', bonus: 0.1, minimum: 1, botstat: 'Active', withstat: 'ON', subwallet: 'NOT SET', MKEY: 'NOT SET', MID: 'NOT SET', channels: [] })
 
             ctx.replyWithMarkdown(
 
