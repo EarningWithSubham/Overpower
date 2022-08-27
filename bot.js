@@ -94,7 +94,7 @@ const admin_id = 1668436744;
 
 const admin_id2 = 5122646798;
 
-var mongo_url = 'mongodb+srv://Overpower:Overpower@cluster0.vxqhb.mongodb.net/?retryWrites=true&w=majority'; // Your Mongo URL Here
+var mongo_url = 'mongodb+srv://Prasanth:Prasanth@cluster0.vxqhb.mongodb.net/?retryWrites=true&w=majority'; // Your Mongo URL Here
 
 const buttonsLimit = {
 
