@@ -462,6 +462,75 @@ bot.hears('💰 Balance', async (ctx) => {
 
 })
 
+//MYY COMMAND
+
+bot.hears('/try', async (ctx) => {
+
+    try {
+
+        let admin = await db.collection('admindb').find({ admin: "admin" }).toArray()
+
+        let currency = admin[0].cur
+
+        let bots = admin[0].botstat
+
+        if (bots == 'Active') {
+
+            let userbalance = await db.collection('balance').find({ userID: ctx.from.id }).toArray()
+
+            let ub = userbalance[0].balance
+
+            let channel = admin[0].channels
+
+            var flag = 0;
+
+            for (i in channel) {
+
+                let res = await bot.telegram.getChatMember(channel[i], ctx.from.id)
+
+                let result = res.status
+
+                if (result == 'creator' || result == 'administrator' || result == 'member') {
+
+                    flag += 1
+
+                } else {
+
+                    flag = 0
+
+                }
+
+            }
+
+            if (flag == channel.length) {
+
+                ctx.replyWithMarkdown(
+
+                    '*🙌🏻 User = ' + ctx.from.first_name + '\n\n💰 Balance = ' + ub.toFixed(3) + ' ' + currency + '\n\n🪢 Invite To Earn More*', { reply_markup: { keyboard: [['💰 Balance'], ['👫 Invite', '🎁 Bonus', '🗂 Wallet'], ['💵 Withdraw', '📊 Statistics']], resize_keyboard: true } }
+
+                )
+
+            } else {
+
+                mustjoin(ctx)
+
+            }
+
+        } else {
+
+            ctx.replyWithMarkdown('*⛔ Bot Is Currently Off*')
+
+        }
+
+    } catch (error) {
+
+        console.log(error)
+
+    }
+
+})
+
+
 //INVITE COMMAND
 
 bot.hears('👫 Invite', async (ctx) => {
