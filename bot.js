@@ -1293,7 +1293,7 @@ broadcast.on('text', async (ctx) => {
 
                 total += 1
 
-                bot.telegram.sendMessage(element.userID, "*📣 Broadcast*\n\n" + ctx.message.text, { parse_mode: 'markdown' }).catch((err) => console.log(err))
+                bot.telegram.sendMessage(element.userID, "*📣 Broadcast*\n\n" + ctx.message.photo, { parse_mode: 'markdown' }).catch((err) => console.log(err))
 
             })
 
