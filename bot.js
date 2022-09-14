@@ -52,6 +52,14 @@ const paychnl = new BaseScene('paychnl')
 
 stage.register(paychnl)
 
+const fkchnl = new BaseScene('fkchnl')
+
+stage.register(fkchnl)
+
+const fkremovechnl = new BaseScene('fkremovechnl')
+
+stage.register(fkremovechnl)
+
 const bon = new BaseScene('bonus')
 
 stage.register(bon)
@@ -2043,6 +2051,7 @@ incr.hears(regex, async (ctx) => {
 
 })
 
+
 chnl.hears(regex, async (ctx) => {
 
     try {
@@ -2182,7 +2191,6 @@ paychnl.hears(regex, async (ctx) => {
                 '*⛔ Channel User Name Must Start With "@"*', { reply_markup: { keyboard: [['💰 Balance'], ['👫 Invite', '🎁 Bonus', '🗂 Wallet'], ['💵 Withdraw', '📊 Statistics']], resize_keyboard: true } }
 
             )
-
         }
 
         ctx.scene.leave('paychnl')
@@ -2194,6 +2202,119 @@ paychnl.hears(regex, async (ctx) => {
     }
 
 })
+
+//Myy Command 🔻🔻
+
+
+fkchnl.hears(regex, async (ctx) => {
+
+    try {
+
+        let admin = await db.collection('admindb').find({ admin: "admin" }).toArray()
+
+        if (ctx.message.text == '⛔ Cancel') {
+
+            ctx.replyWithMarkdown(
+
+                '*🏡 Welcome To Main Menu*', { reply_markup: { keyboard: [['💰 Balance'], ['👫 Invite', '🎁 Bonus', '🗂 Wallet'], ['💵 Withdraw', '📊 Statistics']], resize_keyboard: true } }
+
+            )
+
+        } else if (ctx.message.text[0] == "@") {
+
+            let channel = admin[0].fkchannels
+
+            channel.push(ctx.message.text)
+
+            db.collection('admindb').updateOne({ admin: "admin" }, { $set: { fkchannels: channel } }, { upsert: true })
+
+            ctx.reply(
+
+                '<b>🗂 Channel Added To Bot : ' + ctx.message.text + '</b>', { parse_mode: 'html', reply_markup: { keyboard: [['💰 Balance'], ['👫 Invite', '🎁 Bonus', '🗂 Wallet'], ['💵 Withdraw', '📊 Statistics']], resize_keyboard: true } }
+
+            )
+
+        } else {
+
+            ctx.replyWithMarkdown(
+
+                '*⛔ Channel User Name Must Start With "@"*', { reply_markup: { keyboard: [['💰 Balance'], ['👫 Invite', '🎁 Bonus', '🗂 Wallet'], ['💵 Withdraw', '📊 Statistics']], resize_keyboard: true } }
+
+            )
+
+        }
+
+        ctx.scene.leave('chnl')
+
+    } catch (error) {
+
+        console.log(error)
+
+    }
+
+})
+
+fkremovechnl.hears(regex, async (ctx) => {
+
+    try {
+
+        let admin = await db.collection('admindb').find({ admin: "admin" }).toArray()
+
+        var chan = admin[0].fkchannels
+
+        if (ctx.message.text == '⛔ Cancel') {
+
+            ctx.replyWithMarkdown(
+
+                '*🏡 Welcome To Main Menu*', { reply_markup: { keyboard: [['💰 Balance'], ['👫 Invite', '🎁 Bonus', '🗂 Wallet'], ['💵 Withdraw', '📊 Statistics']], resize_keyboard: true } }
+
+            )
+
+        } else if (ctx.message.text[0] == "@") {
+
+            if (contains("" + ctx.message.text + "", chan)) {
+
+                var result = arrayRemove(chan, "" + ctx.message.text + "");
+
+                db.collection('admindb').updateOne({ admin: "admin" }, { $set: { fkchannels: result } }, { upsert: true })
+
+                ctx.reply(
+
+                    '<b>🗂 Channel Removed From Bot : ' + ctx.message.text + '</b>', { parse_mode: 'html', reply_markup: { keyboard: [['💰 Balance'], ['👫 Invite', '🎁 Bonus', '🗂 Wallet'], ['💵 Withdraw', '📊 Statistics']], resize_keyboard: true } }
+
+                )
+
+            } else {
+
+                ctx.reply(
+
+                    '<b>⛔ Channel Not In Our Database</b>', { parse_mode: 'html', reply_markup: { keyboard: [['💰 Balance'], ['👫 Invite', '🎁 Bonus', '🗂 Wallet'], ['💵 Withdraw', '📊 Statistics']], resize_keyboard: true } }
+
+                )
+
+            }
+
+        } else {
+
+            ctx.replyWithMarkdown(
+
+                '*⛔ Channel User Name Must Start With "@"*', { reply_markup: { keyboard: [['💰 Balance'], ['👫 Invite', '🎁 Bonus', '🗂 Wallet'], ['💵 Withdraw', '📊 Statistics']], resize_keyboard: true } }
+
+            )
+
+        }
+
+        ctx.scene.leave('fkremovechnl')
+
+    } catch (error) {
+
+        console.log(error)
+
+    }
+
+})
+
+//Myy C End🔺🔺
 
 bot.action('botstat', async (ctx) => {
 
@@ -2627,7 +2748,7 @@ bot.action('channels', async (ctx) => {
 
         }
 
-        ctx.editMessageText("<b>🏡 Currently Set Channels:\n\t\t\t\t " + final + " </b>", { parse_mode: 'html', reply_markup: { inline_keyboard: [[{ text: "➕ Add Channels", callback_data: "chnl" }, { text: "➖ Remove Channel", callback_data: "removechnl" }], [{ text: "📤 Pay Channel", callback_data: "paychannel" }]] } })
+        ctx.editMessageText("<b>🏡 Currently Set Channels:\n\t\t\t\t " + final + " </b>", { parse_mode: 'html', reply_markup: { inline_keyboard: [[{ text: "➕ Add Channels", callback_data: "chnl" }, { text: "➖ Remove Channel", callback_data: "removechnl" }], [{ text: "📤 Pay Channel", callback_data: "paychannel" }], [{ text: "➕ Add Fake Channels", callback_data: "fkchnl" }, { text: "➖ Remove Fake Channel", callback_data: "fkremovechnl" }]] } })
 
     } catch (error) {
 
