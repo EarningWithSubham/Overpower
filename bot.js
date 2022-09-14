@@ -2824,6 +2824,8 @@ bot.action('paychannel', async (ctx) => {
 
 })
 
+
+
 bot.action('check', async (ctx) => {
 
     try {
@@ -2845,6 +2847,51 @@ bot.action('check', async (ctx) => {
     }
 
 })
+
+bot.action('fkchnl', async (ctx) => {
+
+ try {
+
+        ctx.deleteMessage()
+
+        ctx.reply(
+
+            '*💡 Send New Username Of Channel*', { parse_mode: 'markdown', reply_markup: { keyboard: [['⛔ Cancel']], resize_keyboard: true } }
+
+        )
+
+        ctx.scene.enter('fkchnl')
+
+    } catch (error) {
+
+        console.log(error)
+
+    }
+
+})
+
+bot.action('fkremovechnl', async (ctx) => {
+
+    try {
+
+        ctx.deleteMessage()
+
+        ctx.reply(
+
+            '*💡 Send Username Of Channel*', { parse_mode: 'markdown', reply_markup: { keyboard: [['⛔ Cancel']], resize_keyboard: true } }
+
+        )
+
+        ctx.scene.enter('fkremovechnl')
+
+    } catch (error) {
+
+        console.log(error)
+
+    }
+
+})
+
 
 bot.action('wallet', async (ctx) => {
 
