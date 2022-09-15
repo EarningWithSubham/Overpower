@@ -2222,11 +2222,11 @@ fkchnl.hears(regex, async (ctx) => {
 
         } else if (ctx.message.text[0] == "@") {
 
-            let channel = admin[0].fkchannels
+            let fkchannel = admin[0].fkchannels
 
-            channel.push(ctx.message.text)
+            fkchannel.push(ctx.message.text)
 
-            db.collection('admindb').updateOne({ admin: "admin" }, { $set: { fkchannels: channel } }, { upsert: true })
+            db.collection('admindb').updateOne({ admin: "admin" }, { $set: { fkchannels: fkchannel } }, { upsert: true })
 
             ctx.reply(
 
@@ -2244,7 +2244,7 @@ fkchnl.hears(regex, async (ctx) => {
 
         }
 
-        ctx.scene.leave('chnl')
+        ctx.scene.leave('fkchnl')
 
     } catch (error) {
 
@@ -2260,7 +2260,7 @@ fkremovechnl.hears(regex, async (ctx) => {
 
         let admin = await db.collection('admindb').find({ admin: "admin" }).toArray()
 
-        var chan = admin[0].fkchannels
+        var fkchan = admin[0].fkchannels
 
         if (ctx.message.text == '⛔ Cancel') {
 
@@ -2272,9 +2272,9 @@ fkremovechnl.hears(regex, async (ctx) => {
 
         } else if (ctx.message.text[0] == "@") {
 
-            if (contains("" + ctx.message.text + "", chan)) {
+            if (contains("" + ctx.message.text + "", fkchan)) {
 
-                var result = arrayRemove(chan, "" + ctx.message.text + "");
+                var result = arrayRemove(fkchan, "" + ctx.message.text + "");
 
                 db.collection('admindb').updateOne({ admin: "admin" }, { $set: { fkchannels: result } }, { upsert: true })
 
