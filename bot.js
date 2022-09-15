@@ -2051,7 +2051,6 @@ incr.hears(regex, async (ctx) => {
 
 })
 
-
 chnl.hears(regex, async (ctx) => {
 
     try {
@@ -2191,6 +2190,7 @@ paychnl.hears(regex, async (ctx) => {
                 '*⛔ Channel User Name Must Start With "@"*', { reply_markup: { keyboard: [['💰 Balance'], ['👫 Invite', '🎁 Bonus', '🗂 Wallet'], ['💵 Withdraw', '📊 Statistics']], resize_keyboard: true } }
 
             )
+
         }
 
         ctx.scene.leave('paychnl')
@@ -2204,7 +2204,6 @@ paychnl.hears(regex, async (ctx) => {
 })
 
 //Myy Command 🔻🔻
-
 
 fkchnl.hears(regex, async (ctx) => {
 
@@ -2824,8 +2823,6 @@ bot.action('paychannel', async (ctx) => {
 
 })
 
-
-
 bot.action('check', async (ctx) => {
 
     try {
@@ -2891,7 +2888,6 @@ bot.action('fkremovechnl', async (ctx) => {
     }
 
 })
-
 
 bot.action('wallet', async (ctx) => {
 
